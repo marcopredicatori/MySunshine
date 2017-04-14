@@ -29,27 +29,25 @@ public class MainActivity extends AppCompatActivity {
 
     void fakeData() {
 
-        String[] data = {
-            "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o"
-        };
+        ArrayList<String> weekForecastArray = new ArrayList<>();
 
-        List<String> weekForecast = new ArrayList<>(Arrays.asList(data));
+        int i = 0;
+        while (i<40) {
+            weekForecastArray.add("Weather Forecast for day "+Integer.toString(i+1));
+            //Log.i("Inserted arraylist el. "+Integer.toString(i),weekForecastArray.get(i));
+            i++;
+        }
 
         mForecastAdapter =
                 new ArrayAdapter<String>(
                         this, // The current context (this activity)
                         R.layout.list_item_forecast, // The name of the layout ID.
                         R.id.list_item_forecast_textview, // The ID of the textview to populate.
-                        weekForecast);
+                        weekForecastArray);
 
-        Log.i("conta", Integer.toString(mForecastAdapter.getCount()));
-
-        Log.i("x","1111111111111111111111");
         ListView listView = (ListView) findViewById(R.id.listview_forecast);
-        Log.i("x","22222222222222222222222");
 
         listView.setAdapter(mForecastAdapter);
-        Log.i("x","3333333333333333333333333");
 
     }
 }
