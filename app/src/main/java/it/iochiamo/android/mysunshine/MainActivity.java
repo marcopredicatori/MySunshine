@@ -22,49 +22,53 @@ import static android.R.attr.data;
 
 public class MainActivity extends AppCompatActivity {
 
-    ArrayAdapter<String> mForecastAdapter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Log.i("xxxxxxxxxxxxxxxxxxxxxxx","yyyyyyyyyyyyyyyyyyyyyyyyyy");
 
-        fakeData();
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.container, new PlaceholderFragment())
+                    .commit();
+        }
     }
 
     public static class PlaceholderFragment extends Fragment {
+
 
         public PlaceholderFragment() {
         }
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
             // Inflate the layout for this fragment
-            return inflater.inflate(R.layout.fragment_main, container, false);
+            ArrayList<String> weekForecastArray = new ArrayList<>();
+
+            int i = 0;
+            while (i<40) {
+                weekForecastArray.add("Weather Forecast for day "+Integer.toString(i+1));
+                //Log.i("Inserted arraylist el. "+Integer.toString(i),weekForecastArray.get(i));
+                i++;
+            }
+            ArrayAdapter<String> mForecastAdapter;
+
+            mForecastAdapter =
+                    new ArrayAdapter<String>(
+                            getContext(), // The current context (this activity)
+                            R.layout.list_item_forecast, // The name of the layout ID.
+                            R.id.list_item_forecast_textview, // The ID of the textview to populate.
+                            weekForecastArray);
+
+            ListView listView = (ListView) rootView.findViewById(R.id.listview_forecast);
+
+            listView.setAdapter(mForecastAdapter);
+
+
+            return rootView;
         }
     }
 
-    void fakeData() {
-
-        ArrayList<String> weekForecastArray = new ArrayList<>();
-
-        int i = 0;
-        while (i<40) {
-            weekForecastArray.add("Weather Forecast for day "+Integer.toString(i+1));
-            //Log.i("Inserted arraylist el. "+Integer.toString(i),weekForecastArray.get(i));
-            i++;
-        }
-
-        mForecastAdapter =
-                new ArrayAdapter<String>(
-                        this, // The current context (this activity)
-                        R.layout.list_item_forecast, // The name of the layout ID.
-                        R.id.list_item_forecast_textview, // The ID of the textview to populate.
-                        weekForecastArray);
-
-        ListView listView = (ListView) findViewById(R.id.listview_forecast);
-
-        listView.setAdapter(mForecastAdapter);
-
-    }
 }

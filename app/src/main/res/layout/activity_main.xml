@@ -4,13 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="it.iochiamo.android.mysunshine.MainActivity">
-
-    <ListView
-        android:id="@+id/listview_forecast"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        />
+    tools:context="it.iochiamo.android.mysunshine.MainActivity"
+    android:id="@+id/container">
 
 </FrameLayout>
