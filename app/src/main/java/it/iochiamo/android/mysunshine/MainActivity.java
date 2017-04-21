@@ -1,10 +1,8 @@
 package it.iochiamo.android.mysunshine;
 
-import android.support.annotation.NonNull;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,13 +10,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
-
-import static android.R.attr.data;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,8 +17,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.i("xxxxxxxxxxxxxxxxxxxxxxx","yyyyyyyyyyyyyyyyyyyyyyyyyy");
 
+        /*
+        This part starts the fragment
+         */
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.container, new PlaceholderFragment())
@@ -40,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
         public PlaceholderFragment() {
         }
+
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
@@ -48,9 +42,8 @@ public class MainActivity extends AppCompatActivity {
             ArrayList<String> weekForecastArray = new ArrayList<>();
 
             int i = 0;
-            while (i<40) {
-                weekForecastArray.add("Weather Forecast for day "+Integer.toString(i+1));
-                //Log.i("Inserted arraylist el. "+Integer.toString(i),weekForecastArray.get(i));
+            while (i < 40) {
+                weekForecastArray.add("Weather Forecast for day " + Integer.toString(i + 1));
                 i++;
             }
             ArrayAdapter<String> mForecastAdapter;
