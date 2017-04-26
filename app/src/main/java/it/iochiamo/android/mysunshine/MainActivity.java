@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
                 // Construct the URL for the OpenWeatherMap query
                 // Possible parameters are available at OWM's forecast API page, at
                 // http://openweathermap.org/API#forecast
-                URL url = new URL("http://api.openweathermap.org/data/2.5/forecast?units=metric&id=3163965&appid=99f0e966b8f6a08e87b59b9336428b19&mode=json&cnt=3");
+                URL url = new URL("http://api.openweathermap.org/data/2.5/forecast?units=metric&id=3169070&appid=99f0e966b8f6a08e87b59b9336428b19&mode=json&cnt=3");
 
                 // Create the request to OpenWeatherMap, and open the connection
                 urlConnection = (HttpURLConnection) url.openConnection();
