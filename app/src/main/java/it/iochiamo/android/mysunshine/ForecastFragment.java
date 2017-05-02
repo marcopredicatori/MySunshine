@@ -1,5 +1,6 @@
 package it.iochiamo.android.mysunshine;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -55,7 +56,7 @@ public class ForecastFragment extends Fragment {
         return rootView;
     }
 
-    public class FetchWeatherTask {
+    public class FetchWeatherTask extends AsyncTask<Void,Void,Void>{
 
         protected Void doInBackground(Void... params) {
             // These two need to be declared outside the try/catch
