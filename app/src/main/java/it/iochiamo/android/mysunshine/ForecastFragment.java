@@ -24,7 +24,6 @@ import java.util.ArrayList;
 
 public class ForecastFragment extends Fragment {
 
-
     public ForecastFragment() {
     }
 
@@ -56,7 +55,7 @@ public class ForecastFragment extends Fragment {
         return rootView;
     }
 
-    public class FetchWeatherTask extends AsyncTask<Void,Void,Void>{
+    public class FetchWeatherTask extends AsyncTask<Void, Void, Void> {
 
         protected Void doInBackground(Void... params) {
             // These two need to be declared outside the try/catch
