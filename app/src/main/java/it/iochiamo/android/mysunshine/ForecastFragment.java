@@ -1,9 +1,14 @@
 package it.iochiamo.android.mysunshine;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -23,8 +28,32 @@ import java.util.ArrayList;
 
 public class ForecastFragment extends Fragment {
 
-
     public ForecastFragment() {
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.forecastfragment, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+        if (id == R.id.refresh_button) {
+            FetchWeatherTask weatherTask = new FetchWeatherTask();
+            weatherTask.execute();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -55,7 +84,7 @@ public class ForecastFragment extends Fragment {
         return rootView;
     }
 
-    public class FetchWeatherTask {
+    public class FetchWeatherTask extends AsyncTask<Void, Void, Void> {
 
         protected Void doInBackground(Void... params) {
             // These two need to be declared outside the try/catch
@@ -70,7 +99,7 @@ public class ForecastFragment extends Fragment {
                 // Construct the URL for the OpenWeatherMap query
                 // Possible parameters are available at OWM's forecast API page, at
                 // http://openweathermap.org/API#forecast
-                URL url = new URL("http://api.openweathermap.org/data/2.5/forecast/daily?q=94043&mode=json&units=metric&cnt=7");
+                URL url = new URL("http://api.openweathermap.org/data/2.5/forecast/daily?q=94043&mode=json&units=metric&cnt=7&APPID=93be3a4125fbcae6e50d11c7d0974de5");
 
                 // Create the request to OpenWeatherMap, and open the connection
                 urlConnection = (HttpURLConnection) url.openConnection();
@@ -99,6 +128,9 @@ public class ForecastFragment extends Fragment {
                     forecastJsonStr = null;
                 }
                 forecastJsonStr = buffer.toString();
+
+                // Sow Json string in log, just for debugging puposes.
+                Log.v("JSON_STRING", forecastJsonStr);
             } catch (IOException e) {
                 Log.e("PlaceholderFragment", "Error ", e);
                 // If the code didn't successfully get the weather data, there's no point in attempting

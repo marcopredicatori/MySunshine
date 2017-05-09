@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">My Sunshine</string>
+    <string name="app_name" translatable="false">My Sunshine</string>
+    <string name="refresh_button">refresh</string>
 </resources>
