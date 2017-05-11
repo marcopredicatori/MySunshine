@@ -1,5 +1,6 @@
 package it.iochiamo.android.mysunshine;
 
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -99,7 +100,19 @@ public class ForecastFragment extends Fragment {
                 // Construct the URL for the OpenWeatherMap query
                 // Possible parameters are available at OWM's forecast API page, at
                 // http://openweathermap.org/API#forecast
-                URL url = new URL("http://api.openweathermap.org/data/2.5/forecast/daily?q=94043&mode=json&units=metric&cnt=7&APPID=93be3a4125fbcae6e50d11c7d0974de5");
+
+                Uri.Builder uri = new Uri.Builder();
+                uri.scheme("http")
+                        .authority("api.openweathermap.org")
+                        .appendPath("data/2.5/forecast/daily")
+                        .appendQueryParameter("q", "94043")
+                        .appendQueryParameter("mode", "json")
+                        .appendQueryParameter("unit", "metric")
+                        .appendQueryParameter("cnt", "7")
+                        .appendQueryParameter("APPID", "93be3a4125fbcae6e50d11c7d0974de5")
+                ;
+
+                URL url = new URL(uri.toString());
 
                 // Create the request to OpenWeatherMap, and open the connection
                 urlConnection = (HttpURLConnection) url.openConnection();
