@@ -50,7 +50,7 @@ public class ForecastFragment extends Fragment {
 
         int id = item.getItemId();
         if (id == R.id.refresh_button) {
-            FetchWeatherTask weatherTask = new FetchWeatherTask();
+            FetchWeatherTask weatherTask = new FetchWeatherTask("94043");
             weatherTask.execute();
             return true;
         }
@@ -87,6 +87,12 @@ public class ForecastFragment extends Fragment {
 
     public class FetchWeatherTask extends AsyncTask<Void, Void, Void> {
 
+        public FetchWeatherTask(String cap) {
+            myCap=cap;
+        }
+
+        private String myCap;
+
         protected Void doInBackground(Void... params) {
             // These two need to be declared outside the try/catch
             // so that they can be closed in the finally block.
@@ -105,7 +111,7 @@ public class ForecastFragment extends Fragment {
                 uri.scheme("http")
                         .authority("api.openweathermap.org")
                         .appendPath("data/2.5/forecast/daily")
-                        .appendQueryParameter("q", "94043")
+                        .appendQueryParameter("q", myCap)
                         .appendQueryParameter("mode", "json")
                         .appendQueryParameter("unit", "metric")
                         .appendQueryParameter("cnt", "7")
