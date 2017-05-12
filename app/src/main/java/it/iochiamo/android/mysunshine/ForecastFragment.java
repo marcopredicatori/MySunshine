@@ -87,11 +87,11 @@ public class ForecastFragment extends Fragment {
 
     public class FetchWeatherTask extends AsyncTask<Void, Void, Void> {
 
-        public FetchWeatherTask(String cap) {
-            myCap=cap;
+        public FetchWeatherTask(String postCode) {
+            mPostCode =postCode;
         }
 
-        private String myCap;
+        private String mPostCode;
 
         protected Void doInBackground(Void... params) {
             // These two need to be declared outside the try/catch
@@ -111,7 +111,7 @@ public class ForecastFragment extends Fragment {
                 uri.scheme("http")
                         .authority("api.openweathermap.org")
                         .appendPath("data/2.5/forecast/daily")
-                        .appendQueryParameter("q", myCap)
+                        .appendQueryParameter("q", mPostCode)
                         .appendQueryParameter("mode", "json")
                         .appendQueryParameter("unit", "metric")
                         .appendQueryParameter("cnt", "7")
