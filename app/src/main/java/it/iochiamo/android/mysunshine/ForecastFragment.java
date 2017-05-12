@@ -50,8 +50,8 @@ public class ForecastFragment extends Fragment {
 
         int id = item.getItemId();
         if (id == R.id.refresh_button) {
-            FetchWeatherTask weatherTask = new FetchWeatherTask("94043");
-            weatherTask.execute();
+            FetchWeatherTask weatherTask = new FetchWeatherTask();
+            weatherTask.execute("94043", "metric", "93be3a4125fbcae6e50d11c7d0974de5");
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -85,15 +85,9 @@ public class ForecastFragment extends Fragment {
         return rootView;
     }
 
-    public class FetchWeatherTask extends AsyncTask<Void, Void, Void> {
+    public class FetchWeatherTask extends AsyncTask<String, Void, Void> {
 
-        public FetchWeatherTask(String postCode) {
-            mPostCode =postCode;
-        }
-
-        private String mPostCode;
-
-        protected Void doInBackground(Void... params) {
+        protected Void doInBackground(String... params) {
             // These two need to be declared outside the try/catch
             // so that they can be closed in the finally block.
             HttpURLConnection urlConnection = null;
@@ -111,11 +105,11 @@ public class ForecastFragment extends Fragment {
                 uri.scheme("http")
                         .authority("api.openweathermap.org")
                         .appendPath("data/2.5/forecast/daily")
-                        .appendQueryParameter("q", mPostCode)
+                        .appendQueryParameter("q", params[0])
                         .appendQueryParameter("mode", "json")
-                        .appendQueryParameter("unit", "metric")
+                        .appendQueryParameter("unit", params[1])
                         .appendQueryParameter("cnt", "7")
-                        .appendQueryParameter("APPID", "93be3a4125fbcae6e50d11c7d0974de5")
+                        .appendQueryParameter("APPID", params[2])
                 ;
 
                 URL url = new URL(uri.toString());
